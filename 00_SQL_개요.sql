@@ -6,7 +6,7 @@
 /*
 sqlplus   : 오라클 데이터 베이스에서 제공하는 명령줄 도구
 sys       : 시스템(system) 단축어
-as shsdba : 시스템데이터베이스어드민(SYStem DataBase Admin)
+as sysdba : 시스템데이터베이스어드민(SYStem DataBase Admin)
 설치할 때 작성한 비밀번호 작성하기
 비밀번호는 눈에 보이지 않음
 */
@@ -116,7 +116,21 @@ VALUES (6,'정수진', '37','1234567895','2024-05-06');
 INSERT INTO kh_cafe (C_ID, C_NAME, C_ADDRESS, C_PHONE, C_TIME) 
 VALUES (1, '메가커피', '서울시 강남구 광남동', '02-888-8888', '영업시간 : 9:00 ~ 18:00');
 
+--실습1
+INSERT INTO MENU  (MENU_ID, MENU_NAME, MENU_DESC, MENU_PRICE) 
+VALUES (1, '아메리카노', '신선한 원도라 만든 아메리카노','3000');
 
+INSERT INTO MENU  (MENU_ID, MENU_NAME, MENU_DESC, MENU_PRICE) 
+VALUES (2, '카페라떼', '부드러운 우유가 들어간 라떼','3500');
+
+INSERT INTO MENU  (MENU_ID, MENU_NAME, MENU_DESC, MENU_PRICE) 
+VALUES (3, '카푸치노', '진한 커피와 거품이 어우러진 카푸치노','3500');
+
+INSERT INTO MENU  (MENU_ID, MENU_NAME, MENU_DESC, MENU_PRICE) 
+VALUES (4, '카라멜 마키아노', '달콤한 카라멜 시럽이 들어간 마키아토','4000');
+
+INSERT INTO MENU  (MENU_ID, MENU_NAME, MENU_DESC, MENU_PRICE) 
+VALUES (5, '에스프레소', '강한 맛과 향의 에스프레소','2500');
 
 
 
