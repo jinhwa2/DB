@@ -74,11 +74,12 @@ TO_DATE('2024-05-01','YYYY-MM-DD')
 /*
 컬럼명 별칭 지정
 
+
 별칭 지정 방법
-1) 컬럼명 AS "별칭" : 문자O, 띄어쓰기O ,특수문자O
-2) 컬럼명 "별칭" : 문자O,띄어쓰기0,특수문자0
-3) 컬럼명 별칭   : 문자O, 띄어쓰기X ,특수문자X
-4) 컬럼명 AS 별칭 : 문자O, 띄어쓰기X, 특수문자X
+1) 컬럼명 AS "별칭" : 문자 O, 띄어쓰기O, 특수문자 O
+2) 컬럼명 "별칭"    : 문자 O, 띄어쓰기O, 특수문자 O
+3) 컬럼명 별칭       : 문자 O, 띄어쓰기X, 특수문자 X
+4)컬럼명 AS 별칭     : 문자 O, 띄어쓰기 X, 특수문자 X 
 */
 
 --EMPLOYEE테이블에서 이름, 이메일 이메일에@포함이라는 별칭
@@ -112,7 +113,7 @@ SELECT DISTINCT 중복제거할 컬럼명
 FROM 테이블명
 */
 
---EMPLOYEE테이블에서 모든 사원으 ㅣ보서코드 조회
+--EMPLOYEE테이블에서 모든 사원으 부서코드 조회
 SELECT DEPT_CODE FROM EMPLOYEE;
 
 -EMPLOYEE 테이블에서 사원이 존재하는 부서코드만 조회
@@ -127,7 +128,7 @@ FROM EMPLOYEE;
 
 
 /*
-WHERE 절
+  WHERE 절
 
 --테이블에서 조건을 충족하는 행을 조회할 때 사용
 --WHERE 절에는 조건식(TRUE/FALSE)만 작성
@@ -137,10 +138,10 @@ WHERE 절
 
 작성방법
 SELECT 컬럼명, 컬럼명,...
-FROM XPDLQMFAUD
+FROM 테이블명
 WHERE 조건식;
 ->지정된 테이블 모든 행에서 컬럼명이 일치하는 컬럼 값 조회
-
+*/
 --EMPLOYEE 테이블에서 급여가 
 
 SELECT EMP_NAME,SALARY,DEPT_CODE
@@ -166,20 +167,16 @@ IS NULL;
 컬럼 값이 존재하는 경우
 IS NOT NULL;
 */
---E
+--EMPLOYEE 테이블에서 DEPT_CODE가 없는 사원 조회
 SELECT *
-FROM EMPLOYEE 
+FROM EMPLOYEE
 WHERE DEPT_CODE IS NULL;
 
---E
+--EMPLOYEE 테이블에서 DEPT_CODE가 있는 사원조회
 SELECT *
-FROM EMPLOYEE 
+FROM EMPLOYEE
 WHERE DEPT_CODE IS NOT NULL;
 
---특정 전화번호 패턴을 가진 사원의 이름과 전화번호 조회
-select emp_name,phone
-from employee
-where phone like '010%';
 
 /*
 컬럼명 BETWEEN(A) AND (B)
@@ -234,10 +231,14 @@ SELECT EMP_NAME,DEPT_CODE,SALARY
 FROM EMPLOYEE
 WHERE DEPT_CODE IN('D5','D6','D9');
 
-/**** IN 사용 *****/
+/**** NOT IN 사용 *****/
 --EMPLOYEE 테이블에서
 --부서코드가 'D5','D6','D9'아닌 사원의
 --이름,부서코드,급여조회
+SELECT EMP_NAME, DEPT_CODE,SALARY
+FROM EMPLOYEE
+WHERE DEPT_CODE IN('D5','D6','D9');
+
 
 SELECT EMP_NAME,DEPT_CODE,SALARY
 FROM EMPLOYEE
@@ -260,8 +261,8 @@ WHERE 컬럼명 LIKE '패턴'
   
 -글자 수
 
--A_: A뒤에 아무거나 한 글자만 있는 문자열
- 예 : AB,AL,AQ,A가
+- A_ : A뒤에 아무거나 한 글자만 있는 문자열
+  예 : AB, A1, AQ, A가
      가_: 가로 시작하는 두글자 단어만 검색
      나__: 나로 시작하는 세글자 단어만 검색
  
@@ -280,7 +281,7 @@ WHERE EMP_NAME LIKE '전%';
 --EMPLOYEE에서 이름이 수로 끝나는 사원의 사번, 이름 조회
 SELECT EMP_ID,EMP_NAME  
 FROM EMPLOYEE
-WHERE EMP_NAME LIKE '수%';
+WHERE EMP_NAME LIKE '%수';
 
 --EMPLOYEE에서 하 가 포함되는 사원의 사번, 이름 조회
 SELECT EMP_ID,EMP_NAME  
@@ -291,6 +292,12 @@ WHERE EMP_NAME LIKE '%하%'
 SELECT EMP_ID,EMP_NAME  
 FROM EMPLOYEE
 WHERE EMP_NAME LIKE '전%돈';
+
+--ESCAPE 옵션 : LIKE 의미를 벗어나 단순 문자열로 인식
+--> 적용범위 : 특수문자 뒤 한글자
+SELECT EMP_ID,EMP_NAMI,EMAIL
+FROM EMPLOYEE
+WHERE EMAIL LIKE '___#_%' ESCAPE '#';
 
 /*
 
@@ -308,11 +315,12 @@ _를 돈처럼 사용하길 원했기 때문에 중간# 넣어준 것
 
 LIKE '__#@% ESCAPE# 에서 문자 그대로 @ 의미
 
-^구분짓고 싶어요
-LLIKE'__^_% 'ESCAPE '^'
-
-^구분짓고 싶어요
-LLIKE'__^_% 'ESCAPE '^'
+^ 구분짓고 싶어요.
+ LIKE '___^_%' ESCAPE '^'
+ 
+ 
+ * 구분짓고 싶어요
+  LIKE '___*_%' ESCAPE '*'
 */
 
 /*
@@ -386,16 +394,28 @@ FROM EMPLOYEE;
 SELECT EMP_NAME || '의 월급은' || SALARY || '원 입니다.'
 FROM EMPLOYEE;
 
---사원의 이름과 전화번호를 -사용해서 조회
-SELECT EMP_NAME || '-' ||PHONE FROM EMPLOYEE;
+-- 직급 코드가 j5인 사원의 수를 조회
+--J5 몇명인데? 
+SELECT COUNT(*) AS "J5 COUNT"
+FROM EMPLOYEE
+WHERE JOB_CODE = 'J5';
+
+
+-- 사원의 이름과 이메일을 결합해서 조회
+SELECT EMP_NAME || '(' || EMAIL || ')' 
+FROM EMPLOYEE;
+
+--사원의 이름과 전화번호를 - 사용해서 조회
+SELECT EMP_NAME || '-' || PHONE  FROM EMPLOYEE;
 
 --사원의 사번과 부서코드를 - 사용해서 조회
 SELECT EMP_ID || '-' ||DEPT_CODE FROM EMPLOYEE;
---사원의 이름과 급여를 이름:급여 형식으로 조회 AS 이름 : 급여
-SELECT EMP_NAME || ':' ||SALARY AS "이름:급여" FROM EMPLOYEE;
---사원의 이름-연봉 형식으로 조회
-SELECT EMP_NAME ||'-'||SALARY * 12 AS "이름-연봉" FROM EMPLOYEE;
 
+-- 사원의 이름과 급여를 이름: 급여 형식으로 조회 AS 이름 : 급여
+SELECT EMP_NAME || ' : ' || SALARY AS "이름 : 급여" FROM EMPLOYEE;
+
+-- 사원의 이름 - 연봉 형식으로 조회
+SELECT EMP_NAME || ' - ' || SALARY * 12 AS "이름 - 연봉" FROM EMPLOYEE;
 
 
 
