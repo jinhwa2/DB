@@ -20,11 +20,11 @@ SELECT EMP_NAME, hire_date from employee;
  
 --EMPLOYEE 테이블에서 모든 사원의 이름, 급여, 급여 + 100만 조회
 -- 급여 우리회사 직원들의 급여를 100만원씩 + 하면 어떻게 될 것인가?
-SELECT EMP_NAME, SALARY, SALARY + 1000000 FROM employee;
+SELECT EMP_NAME,SALARY,SALARY+1000000 FROM EMPLOYEE;
 
 -- 급여 + 100 에 AS 사용해서 100만원인상 추가
 -- AS의 경우 큰 따옴표를 사용해서 표기
-SELECT EMP_NAME, SALARY, SALARY + 1000000 AS "급여_100만원_인상"
+SELECT EMP_NAME,SALARY,SALARY + 1000000 AS "급여_100만원_인상"
 FROM employee;
 
 --EMPLOYEE 테이블에서 모든 사원의 사번, 이름, 연봉(급여 * 12) 조회
@@ -37,20 +37,19 @@ SELECT EMP_ID, EMP_NAME, SALARY * 6 AS "상반기급여"  FROM employee;
 
 -- 특정 부서에서 속한 사원의 이름과 이메일 조회
 -- 특정 부서 D9
-SELECT DEPT_CODE, EMP_NAME, EMAIL 
+SELECT DEPT_CODE,EMP_NAME,EMAIL
 FROM EMPLOYEE
 WHERE DEPT_CODE = 'D9';
 
 --특정 부서 D1 에서 속한 사원의 이름과 이메일 조회
-SELECT DEPT_CODE, EMP_NAME, EMAIL 
+SELECT DEPT_CODE, EMP_NAME,EMAIL
 FROM employee
-WHERE dept_code = 'D1';
+WHERE DEPT_CODE = 'D1';
 
 -- 특정 부서 D4 에서 속한 사원의 이름과 전화번호 이메일 조회
-SELECT DEPT_CODE, EMP_NAME, EMAIL, PHONE
+SELECT DEPT_CODE,EMP_NAME,EMAIL,PHONE
 FROM employee
-Where dept_code = 'D4';
-
+WHERE DEPT_CODE = 'D4';
 -- WHERE 에서 조회한 조건에 부합하는 사람이 없으면 값이 나오지 않음 = 0
 -- IS NULL 을 사용하면 없는 사람을 조회할 수 있음
 
@@ -62,13 +61,13 @@ WHERE dept_code is NULL;
 SELECT * FROM employee where dept_code is null;
 
 --보너스가 없는 사원의 이름과 보너스를 조회
-SELECT EMP_NAME, BONUS FROM EMployee where bonus IS NULL;
+SELECT EMP_NAME,BONUS FROM EMPLOYEE WHERE BONUS IS NULL;
 
 --급여 등급이 S5인 사원의 이름과 급여 조회 SAL_LEVEL
-SELECT EMP_NAME, SALARY FROM employee WHERE sal_level = 'S5';
+SELECT EMP_NAME,SALARY FROM employee WHERE SAL_LEVEL = 'S5';
 
 --사원 번호가 210 인 사원의 모든 정보 조회 EMP_ID
 SELECT * FROM employee WHERE EMP_ID = '210';
 
 -- 이메일 주소가 null 이 아닌 사원의 이름과 이메일 조회
-SELECT EMP_NAME, EMAIL FROM employee WHERE EMAIL IS NOT NULL;
+SELECT EMP_NAME,EMAIL FROM EMPLOYEE WHERE EMAIL IS NOT NULL;
