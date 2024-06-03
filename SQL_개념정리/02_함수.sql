@@ -94,7 +94,7 @@ FROM EMPLOYEE
 ORDER BY "이메일 아이디";
 
 //--INSTR(EMAIL,1)을 작성하게 되면 나타나는 결과
-SELECT EMP_NAME, SUBSTR(EMAIL, 1,마무리작성을해주는데 마무리가 뭐나면 @) AS "이메일 아이디"
+SELECT EMP_NAME, SUBSTR(EMAIL, 1) AS "이메일 아이디"
 FROM EMPLOYEE
 ORDER BY "이메일 아이디";
 
