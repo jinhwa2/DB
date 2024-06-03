@@ -127,10 +127,56 @@ SET EMAIL = 'ONE_SUM@OR.KR',
 WHERE EMP_ID ='200';
 
 --D9 부서의 모든 직원의 급여 * 1.1 보너스=0.2 변경
-
+UPDATE EMPLOYEE3
+SET SALARY = SALARY*1.1,
+     BONUS = 0.2
+WHERE DEPT_CODE = 'D9';
+ 
 --J3 직무 코드를 가진 직원의 직무 코드와 부서코드 변경
+UPDATE EMPLOYEE3
+SET JOB_CODE = 'J5',
+DEPT_CODE = 'D5'
+WHERE JOB_CODE = 'J3';
+
+--송은희 직원의 이름과 이메일 변경
+--송은희 
+UPDATE EMPLOYEE3
+SET EMP_NAME = '송은휘',
+    EMAIL = 'SONGSONG@OR.KR'
+WHERE EMP_NAME = '송은희';
+
+ROLLBACK;
+
+--차태연 직원의 이름과 급여변경
+-->차태형 8000000
+UPDATE EMPLOYEE3
+SET EMP_NAME ='차태형',SALARY = 8000000;
+WHERE EMP_NAME = '차태연';
 
 
+
+--> EMPLOYEE3 TABLE 해당하는 D4 부서에 해당하는 모든 직원의 이메일 도메인과
+--->부서코드 변경
+UPDATE EMPLOYEE3
+SET EMAIL = REPLACE(EMAIL,'or.kr','kh.kh"),
+DEPT_CODE='D4';
+
+SELECT*FROM EMPLOYEE3;
+
+ROLLBACK;
+
+--EMPLOYEE3 전체 테이블 삭제
+DELETE FROM EMPLOYEE2;
+
+--완전삭제 --> COMMIT
+--되돌리기--> ROLLBACK
+
+COMMIT;
+ 
+SELECT *FROM EMPLYEE2;
+DROP TABLE EMPLOYEE3;
+COMMIT;
+DROP TABLE EMPLOYEE2;
 
     
 
