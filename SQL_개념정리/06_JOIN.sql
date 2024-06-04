@@ -37,71 +37,138 @@ FROM DEPARTMENT;
 DEPT_ID    DEPT_TITLE
 D9	            총무부
 
-*/
-//-- * ANSI 표준 구문
-----구문 기준을 정할 때 정의되는 기준
------- 가장 유명한 표준 ASC2(?)코드
 -- JOIN을 활용해서 EMPLOYEE 테이블과 DEPARTMENT 테이블 한 번에 조회
-SELECT EMP_ID,EMP_NAME,DEPT_CODE,DEPT_ID,DEPT_TITLE
+SELECT EMP_ID, EMP_NAME,DEPT_CODE, DEPT_ID, DEPT_TITLE
 FROM EMPLOYEE
-JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID);
+JOIN department ON ( DEPT_CODE = DEPT_ID);
 
 /*
-EMPLOYEE 테이블과 department  테이블 조인해서
-직원ID, 이름, 부서코드, 부서ID, 부서명을 조회하는 쿼리
 
-JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID);
+EMPLOYEE 테이블과 department 테이블을 조인해서 
+직원ID, 이름, 부서코드, 부서 ID, 부서명을 조회하는 쿼리
 
-//JOIN은 단순히 테이블 두 개 붙이는 것이 아닌
+JOIN department ON ( DEPT_CODE = DEPT_ID)
+
+JOIN은 단순히 테이블을 두 개 붙이는 것이 아닌
 
 기준을 삼은 테이블의 한 컬럼을 지정해
 다른 테이블의 한 컬럼과 같은 행을 찾아
 기준 테이블 옆에 한 행씩 붙여나가는 것
 
-EMP_ID    EMP_NAME DEPT_CODE   DEPT_ID   DEPT_TITLE
-200	        선동일	       D9	            D9	         총무부
-201	        송종기	       D9	            D9	         총무부
-202	        노옹철	       D9	            D9	         총무부
-
 */
 
---1. 내부 조인 INNER JOIN
-----> 연결되는 컬럼의 값이 일치하는 행들만 조인됨
-------(일치하는 값이 없는 행은 조인에서 제외)
+-- 1. 내부 조인 INNER JOIN
+---> 연결되는 컬럼의 값이 일치하는 행들만 조인됨
+----(일치하는 값이 없는 행은 조인에서 제외)
 
---작성 방법 ANSI            ORACLE 로 나뉨
+--작성 방법 ANSI         ORACLE 로 나뉨
 
-
-
---*ORCLE 표준 구문
---- FROM 절에, 로 구분해서 합칠 테이블명 기술
----- WHERE 절에 합치기에 사용할 컬럼명 명시
-
--- 1) 연결에 사용할 두 컬럼명이 다른 경우 --> JOIN ON을 사용
--------오라클에서는 JOIN ON을 사용하지 않고
--------WHERE절에 = 사용하면됨
-
+-- * ANSI 표준 구문
+--- 구문 기준을 정할 때 정의되는 기준 
+---- 가장 유명한 표준 ASCII 코드
 -- JOIN을 활용해서 EMPLOYEE 테이블과 DEPARTMENT 테이블 한 번에 조회
-SELECT EMP_ID,EMP_NAME,DEPT_CODE,DEPT_ID,DEPT_TITLE
-FROM EMPLOYEE, DEPARTMENT
+SELECT EMP_ID, EMP_NAME,DEPT_CODE, DEPT_ID, DEPT_TITLE
+FROM EMPLOYEE
+JOIN department ON ( DEPT_CODE = DEPT_ID);
+
+
+-- * ORACLE 표준 구문
+--- FROM 절에 , 로 구분해서 합칠 테이블명을 기술
+---- WHERE 절에 합치기에 사용할 컬럼명 명시
+-- 1) 연결에 사용할 두 컬럼명이 다른 경우 --> JOIN ON 을 사용
+---- 오라클에서는 JOIN ON을 사용하지 않고
+----- WHERE 절에 = 사용하면 됨
+-- JOIN을 활용해서 EMPLOYEE 테이블과 DEPARTMENT 테이블 한 번에 조회
+SELECT EMP_ID, EMP_NAME,DEPT_CODE, DEPT_ID, DEPT_TITLE
+FROM EMPLOYEE, department
 WHERE DEPT_CODE = DEPT_ID;
 
---DEPARTMENT 테이블, LACATION 테이블 참조해서 부서명, 지역명 조회
 
-SELECT *FROM DEPARTMENT;
+-- DEPARTMENT 테이블, LOCATION 테이블 참조해서 부서명, 지역명 조회
 
-SELECT *FROM LOCATION;
---ANSI 방식 JOIN ON LOCATION_ID = LOCAL_CODE
-SELECT DEPT_TITLE AS "부서명",LACAL_CODE AS "코드명",LOCAL_NAME AS "지역명"
+SELECT * FROM department;
+
+SELECT * FROM location;
+
+-- ANSI 방식  JOIN ON LOCATION_ID = LOCAL_CODE
+SELECT DEPT_TITLE AS "부서명", LOCAL_CODE AS "코드명",LOCAL_NAME AS "지역명"
 FROM department
-JOIN location ON (LOCATION_ID = LOCAL_CODE);
+JOIN LOCATION ON ( LOCATION_ID = LOCAL_CODE);
 
---ORCLE 방식 LACATION_ID = LOCAL_CODE
-SELECT DEPT_TITLE AS "부서명", LOCAL_NAME AS "지역명"
+--ORACLE 방식    LOCATION_ID = LOCAL_CODE
+SELECT DEPT_TITLE AS "부서명", LOCAL_CODE AS "코드명", LOCAL_NAME AS "지역명"
 FROM department, location
 WHERE LOCATION_ID = LOCAL_CODE;
 
 
+/*
+연결에 사용할 두 컬럼이 다른 경우 --> JOIN    ON
+연결에 사용할 두 컬럼이 같은 경우 --> JOIN    USING
+
+-- 2) 연결에 사용할 두 컬럼명이 같은 경우 --> JOIN USING 을 사용
+FROM 테이블명
+JOIN 테이블명 USING(같은컬럼명)
+*/
+
+--EMPLOYEE 테이블, JOB테이블 참조해서
+-- 사번, 이름, 직급코드, 직급명 조회
+
+--ANSI 표준 연결방법
+-- 연결에 사용할 컬럼이 같은 경우 USING(컬럼명)사용
+
+SELECT EMP_ID, EMP_NAME, JOB_CODE FROM EMPLOYEE;
+/*
+
+EMP_ID, EMP_NAME, JOB_CODE
+200	           선동일	         J1
+201	           송종기	         J2
+202	           노옹철	         J2
+203	           송은희	         J4
+204	           유재식	         J3
+205	           정중하	         J3
+206	           박나라	         J7
+207	           하이유	         J5
+208	           김해술	         J5
+209	           심봉선	         J3
+*/
+SELECT * FROM JOB;
+/*
+JOB_CODE   JOB_NAME
+J1	                대표
+J2	                부사장
+J3	                부장
+J4	                차장
+J5	                과장
+J6	                대리
+J7	                사원
+*/
+
+SELECT EMP_ID, EMP_NAME, JOB_CODE, JOB_NAME
+FROM EMPLOYEE
+JOIN JOB USING(JOB_CODE);
+/*
+ANSI 표준 규격으로 작성해서 나온 조회결과
+EMP_ID, EMP_NAME, JOB_CODE, JOB_NAME
+200	          선동일	            J1	               대표
+201	          송종기	            J2	               부사장
+202	          노옹철	            J2	               부사장
+203	          송은희	            J4	               차장
+204	          유재식	            J3	               부장
+*/
+
+SELECT E.EMP_ID, E.EMP_NAME, E.JOB_CODE, J.JOB_NAME
+FROM EMPLOYEE E, JOB J
+WHERE E.JOB_CODE = J.JOB_CODE;
+
+/*
+ORACLE 표준 규격으로 작성해서 나온 조회결과
+EMP_ID, EMP_NAME, JOB_CODE, JOB_NAME
+200	          선동일	            J1	               대표
+201	          송종기	            J2	               부사장
+202	          노옹철	            J2	               부사장
+203	          송은희	            J4	               차장
+204	          유재식	            J3	               부장
+*/
 
 
 
@@ -116,10 +183,36 @@ WHERE LOCATION_ID = LOCAL_CODE;
 
 
 
+/******
+NATURAL JOIN (자연조인) 
+동일한 타입과 이름을 가진 컬럼이 있는 테이블 간의 조인을 간단히 표현한 방법
+반드시 두 테이블 간에 동일한 컬럼명, 타입을 가진 컬럼이 필요
+없을 경우 교차조인이 됨
+
+EMPLOYEE.JOB_CODE  (CHAR(2))
+            JOB.JOB_CODE  (CHAR(2))
+            --> 컬럼명, 자료형이 모두 일치 == 자연조인 대상
+SELECT 컬럼명, 컬럼명, 컬럼명, ...
+FROM 테이블명
+NATURAL JOIN 테이블명
 
 
+JOIN에 별칭을 설정해서 테이블 표현하기 
+JOIN과  FROM 에서 테이블을 설정할 때 
+쿼리를 좀 더 간결하고 읽기 쉽게 만드는 방법
+테이블을 다수 여러개 참조할 때 유용
 
+사용방법
 
+1) SELECT  테이블명.컬럼명, 테이블명.컬럼명
+     FROM     테이블명, 테이블명
+     WHERE   테이블명.컬럼명 = 테이블명.컬럼명
+     
+2) SELECT  A.컬럼명,    B.컬럼명
+     FROM     테이블명 A, 테이블명 B
+     WHERE  A.컬럼명 =  B.컬럼명
+     
+******/
 
 
 
