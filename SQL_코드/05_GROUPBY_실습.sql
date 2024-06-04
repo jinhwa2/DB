@@ -13,7 +13,8 @@ ORA-00934: group function is not allowed here
 
 ->WHERE 절에서는 집계 함수(SUM,AVG,MAX,MIN,COUNT 등)
      사용할 수 없음
-//집계함수(SUM,AVG,MAX,NIM,COUNT등)는 HAVING 이나 GROUP BY
+집계 함수(SUM, AVG, MAX, MIN, COUNT 등) 는 HAVING 이나 WHERE GROUP을
+다른 방식으로 사용해서 작성
 
 */
 --2.각 부서별 최대 급여 조회 
