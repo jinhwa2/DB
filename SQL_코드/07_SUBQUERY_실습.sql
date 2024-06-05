@@ -76,19 +76,20 @@ SELECT DEPT_TITLE,
             WHERE E.DEPT_CODE = D.DEPT_ID) AS "최저급여"
 FROM department D;
 
-//--1. 부서별 직원수 조회 SELECT
+--1. 부서별 직원수 조회 SELECT
 -- 외부 쿼리 DEPT_CODE
 -- FROM DEPARTMENT D
 SELECT D.DEPT_ID,
           (SELECT COUNT(*)
           FROM EMPLOYEE E 
-         WHERE E.DEPT_CODE = E.DEPT_ID)
-FROM DEPQRTMENT D;
+         WHERE E.DEPT_CODE = D.DEPT_ID)
+FROM DEPARTMENT D;
 
 --2. 부서별로 직원수 5명 이상인 부서의 부서명과 직원수 조회
 ---- SELECT 서브쿼리
 ---- WHERE  서브쿼리
 ---- 외부 
+
 SELECT DEPT_TITLE ,(SELECT COUNT(*) 
                                 FROM employee E
                                 WHERE E.DEPT_CODE = D.DEPT_ID)
