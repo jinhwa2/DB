@@ -68,17 +68,16 @@ FROM EMPLOYEE;
 --- FLOOR(MONTHS_BETWEEN(SYSDATE,HIRE_DATE) / 12) >= 20 THEN '20년 이상'
 --- 10 10년 이상
 --- 10년 미만 근속기간 분류
-SELECT EMP_NAME,HIRE_DATE,
-            CASE
-                  WHEN  FLOOR(MONTHS_BETWEEN(SYSDATE,HIRE_DATE)/12 >=  20
-                        THEN '20년 이상'
-                  WHEN  FLOOR(MONTHS_BETWEEN(SYSDATE,HIRE_DATE)/12 >= 10
-                        THEN '10년 이상'
-                        ELSE
-                          '10년 미만'
-END  AS "근속기간"
-FROM EMPLOYEEL;
-
+SELECT EMP_NAME, HIRE_DATE,
+        CASE
+            WHEN FLOOR(MONTHS_BETWEEN(SYSDATE, HIRE_DATE) / 12) >= 20 
+                THEN '20년 이상'
+            WHEN FLOOR(MONTHS_BETWEEN(SYSDATE, HIRE_DATE) / 12) >= 20 
+                THEN '10년 이상'
+            ELSE '10년 미만'
+            
+        END AS "근속기간"
+FROM EMPLOYEE;
 
 
 
