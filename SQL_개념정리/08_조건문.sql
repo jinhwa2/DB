@@ -12,7 +12,7 @@
 -- 예제 1)
 ----> EMPLOYEE 테이블에서 모든 사원의 이름,주민번호,성별조회
 SELECT EMP_NAME, EMP_NO,
-            DECODE(SUBSTR(EMP_NO,8,1),
+            DECODE(SUBSTR (EMP_NO,8,1),
             '1', '남자',
             '2','여자',
             '기타') AS "성별"
@@ -28,6 +28,7 @@ CASE
         WHEN 조건2 THEN 결과2
         WHEN 조건3 THEN 결과3
         ELSE 결과
+
 END
 
 --DECODE 계산식 | 컬럼 값이 딱 떨어지는 경우 사용 가능

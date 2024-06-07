@@ -30,7 +30,14 @@ VALUES ('D0','경리부','L2');
 
 SELECT *FROM department3;
 
-//------> D9인 부
+--1) COMMIT 예제
+----> D0 경리부 L2 삽입
+INSERT INTO DEPARTMENT3
+VALUES ('D0','경리부','L2');
+
+SELECT * FROM department3;
+
+---> D9 인 부서의 이름과 지역코드를 전략기획팀 L3 수정
 UPDATE DEPARTMENT3
 SET DEPT_TITLE ='전략기획팀',
 LOCATION_ID = 'L3'

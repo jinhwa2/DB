@@ -355,6 +355,60 @@ CREATE TABLE 자식테이블 (
 );
 */
 ----------------------------------------------------------------------------------------
+--5.CHECK 제약조건 :컬럼에 기록되는 값에 조건을 설정할 수 있음
+-- CHECK (컬럼명 비교연산자 비교값)
+-- 비교값은 변하는 값이나 함수 사용 불가
+
+CREATE TABLE USER_CHECK (
+USER_NO NUMBER PRIMARY KEY,
+USER_ID VARCHAR2(20) UNIQUE,
+USER_PW VARCHAR2(30) NOT NULL,
+USER_NAME VARCHAR2(30),
+
+GENDER VARCHAR2(10) CHECK (GENDER IN ('남','여'))
+
+);
+
+INSERT INTO USER_CHECK
+VALUES (1,'USER01','PW01','홍길동','남');
+
+INSERT INTO USER_CHECK
+VALUES (2,'USER01','PW01','박철수','남자');
+/*
+ORA-02290: check constraint (KH_T.SYS_C007198) violated
+*/
+
+--CHECK 사용방법
+--1번 방법
+
+--2번방법 따로 INDEX에 기록한 다음 조건 설정한 경우 (한줄 작성)
+컬럼명 자료형 CONSTRAINT 인덱스에 기록할이름  CHECK (컬럼명 IN ('조건1','조건2'))
+
+--3번방법 따로 INDEX에 기록한 다음 조건 설정한 경우(여러줄 작성)
+컬럼명 자료형 CONSTRAINT 인덱스에 기록할이름  CHECK (컬럼명 IN ('조건1','조건2'))
+
+CONSTRAINT 인덱스에기록할이름 CHECK(컬럼명 IN('조건1','조건2'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

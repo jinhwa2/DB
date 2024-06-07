@@ -28,48 +28,47 @@ SELECT 1234, TO_CHAR(1234,'00000000') FROM DUAL; -- '00001234' 앞에 0이 4칸 
 
 -- 숫자 -> 문자열 변환시 주의 사항
 --> 지정된 칸 수가 숫자 길이보다 적으면 전부 # 변환돼서 출력
-SELECT 1234,TO_CHAR(1234,'000') FROM DUAL; 
+SELECT 1234,TO_CHAR(1234,'000') FROM DUAL: 
+SELECT 1234, TO_CHAR(1234, '999') FROM DUAL; 
 --지정된 자리값보다 변환해야 하는 값의 길이가 더 크기 때문에 ###CNFFUR
 
 -- 화폐기호 + 자릿수 구분
-SELECT 
-           TO_CHAR(123456789,'L999999999'),
-           TO_CHAR(123456789.'$999999999'), 
-           TO_CHAR(123456789.'$999,999,999'),
-FROM DUAL;  -------\123456789 
 
+SELECT 
+       TO_CHAR(12345678,'L999999999'), 
+       TO_CHAR(123456789,'$999999999'),
+       TO_CHAR(123456789,'$999,999,999')
+FROM DUAL;
+       
 --모든 사원의 연봉조회 현재 화폐 단위, 사용해서 조회
 --현재 화폐 단위, 사용해서 조회
 --FROM EMPLOYEE
 
-SELECT EMP_NAME, TO_CHAR(SALARY *12,'L999,999,999') AS "연봉"
+SELECT EMP_NAME,TO_CHAR(SALARY * 12 ,'L999,999,999') AS "연봉"
 FROM EMPLOYEE;
 
-
+ 
 
 --DUAL 테이블 사용해서 현재날짜 (SYSDATE) YYYY-MM-DD
-SELECT SYSDATE, TO_CHAR(SYSDATE,'YYYY-MM-DD')
+SELECT SYSDATE, TO_CHAR(SYSDATE, 'YYYY-MM-DD') 
 FROM DUAL;
 
 --DUAL 테이블 사용해서 현재날짜 (SYSDATE) YYYY-MM-DD 2024-06-05 수요일
-SELECT SYSDATE, TO_CHAR(SYSDATE,'YYYY-MM-DD DAY');
+SELECT SYSDATE, TO_CHAR(SYSDATE,'YYYY-MM-DD DAY')
 FROM DUAL;
 
 --DUAL 테이블 사용해서 현재날짜(SYSDATE) 2024-06-05(수)
 SELECT SYSDATE,TO_CHAR(SYSDATE,'YYYY-MM-DD (DY)')
-FROM DUAL;
+FROM DUAL;                                         -- 2024-06-05 (수)
 
---DUAL 테이블 사용해서 현재날짜(SYSDATE) 2024-06-05 (수)
-SELECT SYSDATE,TO_CHAR(SYSDATE,'YYYY-MM-DD (DY) AM HH:MI:SS')
-FROM DUAL;
+--DUAL 테이블 사용해서 현재날짜(SYSDATE) 2024-06-05 (수) 오전 시:MI:초
+SELECT SYSDATE, TO_CHAR(SYSDATE,'YYYY-MM-DD (DY) AM HH:MI:SS')
+FROM DUAL;                                         -- 24/06/05	2024-06-05 (수) 오후 08:42:45
 
-//--DUAL 테이블 사용해서 현재날짜(SYSDATE) 2024-06-05(수) 오전 시:MI초
-SELECT SYSDATE,TO_CHAR(SYSDATE,'YYYY"년" MM"월" DD"일 (DY) AM HH:MI:SS')
-FROM DUAL;
+--DAUL 테이블 사용해서 현재 날짜(SYSDATE)  2024년 06월 05일  오전 00시 00분 00초 현재 시
+SELECT SYSDATE, TO_CHAR(SYSDATE,'YYYY "년" MM"월" DD"일" AM HH"시" MI"분" SS"초" ')
+FROM DUAL;                                        --2024 년 06월 05일 오후 08시 46분 30초 
 
-//--DUAL 테이블 사용해서 현재날짜(SYSDATE) 2024년 06월 05일 오전00시00분00초 현재시
-SELECT SYSDATE,TO_CHAR(SYSDATE,'YYYY"년" MM"월" DD"일 (DY) AM HH:MI:SS')
-FROM DUAL;
 
 /*
 TO_DATE(문자열 | 숫자 [,포맷])
@@ -85,13 +84,10 @@ SELECT TO_DATE('06-05-2024','DD-MM-YYYY')
 FROM DUAL;
 --TO_DATE 형식으로 년/월/일 변경하겠다 06-05-2024 -> 24/05/06
 
-SELECT TO_DATE('05월 27일 월요일 12시 50분', MM"월"DD"일"DAY HH"시"MI"분)
-FROM DUAL;
--->TO DATE 형식 년/월/일 변경하겠다
---05월 27일 월요일 12시 50분 -> 24/05/24
 
---숫자 -> 날짜
-SELECT TO_DATE(20240605,'YYYYMMDD') FROM DUAL; 
+SELECT TO_DATE('05월 27일 월요일 12시 50분', ' MM"월" DD"일" DAY HH"시" MI"분"')
+FROM DUAL;
+
 
 
 
@@ -103,10 +99,8 @@ SELECT TO_DATE(20240605,'YYYYMMDD') FROM DUAL;
 --50 이상 : Y 현재 세기(2000 년대 기준 이후) R 이전 세기(1900년대 기준)
 
 
-
-
-
 --연도가 앞 두자리 누락  50년 대 기준으로 살펴봄
+
 --1) 50년대 미만 확인
 SELECT 
             TO_DATE('49-12-01','YY-MM-DD') AS "YY", --2049
