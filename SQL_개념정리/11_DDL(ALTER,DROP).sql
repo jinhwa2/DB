@@ -83,9 +83,13 @@ SELECT * FROM DEPT_COPY;
 
 
 --> LOCATION_ID 컬럼2번 방법 삭제
-ALTER TABLE DEPT_COPY DROP COLUMN LOCATION_ID; 
+ALTER TABLE DEPT_COPY DROP COLUMN LOCATION_ID;
 /*
-ORA-00904: "CNAME": invalid identifier
+ORA-00942: table or view does not exist
+만약에 존재하지 않은 테이블을 삭제하려하면 나오는 에러
+
+ORA-00904: "LOCATION_ID": invalid identifier
+만약에 존재하지 않은 컬럼을 삭제하려면 나오는 에러
 */
 
 --3. 테이블 삭제
@@ -105,7 +109,7 @@ CREATE TABLE TB2(
        );
        
 --일반 삭제(DEPT_COPY)
-DROP TABLE DEPT_COPY; -- TABLE 
+DROP TABLE DEPT_COPY; -- Table DEPT_COPY이(가) 삭제되었습니다.
 
 SELECT *FROM DEPT_COPY; --ORA-00942: table or view does not exist
 

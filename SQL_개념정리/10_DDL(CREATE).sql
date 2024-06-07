@@ -1,15 +1,13 @@
 /*
-/*
-
 DDL (DATA DEFINITION LANGUABE) : 데이터 정의 언어
 
 
 OBJECT  CREATE  ALTER     DROP
  객체        만들고   수정하고  삭제하는 언어
- 
+ -----------------------------------------------------------------------
  오라클에서 객체 : 테이블(TABLE)  뷰(VIEW)   시퀀스(SQUENCE)
                           인덱스(INDEX)   패키지(PACKAGE)  트리거(TRIGGER)
-                          프로시져(PROCEDURE),  함수(FUNCTION)
+                          프로시져(PROCEDURE)  함수(FUNCTION)
                           동의어(SYNONYM),  사용자(USER)
 -----------------------------------------------------------------------
 

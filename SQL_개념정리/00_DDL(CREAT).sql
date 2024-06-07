@@ -71,7 +71,11 @@ CREATE TABLE EMPLOYEE2 AS SELECT * FROM EMPLOYEE;
 SELECT *FROM EMPLOYEE2;
 --AS 복사하고 싶은 테이블 SELECT
 
--
+--복사한 테이블에 제대로 만들어졌는지 확인하기
+SELECT * FROM 새로만든테이블명;
+
+--EMPLOYEE2가 EMPLOYEE 제대로 복사했는지 확인하기
+SELECT * FROM EMPLOYEE2;
 
 
 
